@@ -2,3 +2,6 @@ node_modules
 .env
 build
 coverage
+index.js
+public/bundle.js
+index.js.map
