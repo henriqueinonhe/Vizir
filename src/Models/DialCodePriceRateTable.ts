@@ -1,6 +1,6 @@
 import Dinero from "dinero.js";
 
-type DialCodePriceRateTableData = Map<number, Map<number, Dinero.Dinero>>;
+type DialCodePriceRateTableData = Map<number, Map<number, Dinero.Dinero | null>>;
 
 /**
  * Represents a table that stores the price rates
@@ -150,14 +150,21 @@ export default class DialCodePriceRateTable
    * @param fromDialCode 
    * @param toDialCode 
    */
-  public getRate(fromDialCode : number, toDialCode : number) : Dinero.Dinero
+  public getRate(fromDialCode : number, toDialCode : number) : Dinero.Dinero | null
   {
     this.validateDialCode(fromDialCode);
     this.validateDialCode(toDialCode);
 
     const rate = this.data.get(fromDialCode)!.get(toDialCode)!;
-    const rateClone = Dinero({amount: rate.getAmount(), currency: rate.getCurrency(), precision: rate.getPrecision()});
-    return rateClone;
+    if(rate === null)
+    {
+      return null;
+    }
+    else
+    {
+      const rateClone = Dinero({amount: rate.getAmount(), currency: rate.getCurrency(), precision: rate.getPrecision()});
+      return rateClone;
+    }
   }  
 
   private data : DialCodePriceRateTableData;

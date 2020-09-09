@@ -28,31 +28,31 @@ describe("faleMaisPlanMinutes()", () =>
 
 describe("defaultPrice()", () =>
 {
-  const rateTableData = new Map<number, Map<number, Dinero.Dinero>>();
+  const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
 
-  rateTableData.set(11, new Map<number, Dinero.Dinero>());
+  rateTableData.set(11, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(11)!.set(11, DineroReal(0));
   rateTableData.get(11)!.set(16, DineroReal(190e2));
   rateTableData.get(11)!.set(17, DineroReal(170e2));
   rateTableData.get(11)!.set(18, DineroReal(90e2));
 
-  rateTableData.set(16, new Map<number, Dinero.Dinero>());
+  rateTableData.set(16, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(16)!.set(11, DineroReal(290e2));
-  rateTableData.get(16)!.set(16, DineroReal(0));
-  rateTableData.get(16)!.set(17, DineroReal(0));
-  rateTableData.get(16)!.set(18, DineroReal(0));
+  rateTableData.get(16)!.set(16, null);
+  rateTableData.get(16)!.set(17, null);
+  rateTableData.get(16)!.set(18, null);
 
-  rateTableData.set(17, new Map<number, Dinero.Dinero>());
+  rateTableData.set(17, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(17)!.set(11, DineroReal(270e2));
-  rateTableData.get(17)!.set(16, DineroReal(0));
-  rateTableData.get(17)!.set(17, DineroReal(0));
-  rateTableData.get(17)!.set(18, DineroReal(0));
+  rateTableData.get(17)!.set(16, null);
+  rateTableData.get(17)!.set(17, null);
+  rateTableData.get(17)!.set(18, null);
 
-  rateTableData.set(18, new Map<number, Dinero.Dinero>());
+  rateTableData.set(18, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(18)!.set(11, DineroReal(190e2));
-  rateTableData.get(18)!.set(16, DineroReal(0));
-  rateTableData.get(18)!.set(17, DineroReal(0));
-  rateTableData.get(18)!.set(18, DineroReal(0));
+  rateTableData.get(18)!.set(16, null);
+  rateTableData.get(18)!.set(17, null);
+  rateTableData.get(18)!.set(18, null);
 
   const rateTable = new DialCodePriceRateTable(rateTableData);
 
@@ -77,42 +77,47 @@ describe("defaultPrice()", () =>
 
   describe("Post Conditions", () =>
   {
-    test("Happy path", () =>
+    test("Non Null rates", () =>
     {
-      expect(DialPriceCalculator.defaultPrice(rateTable, 11, 16, 20).toFormat()).toBe("R$38.00");
-      expect(DialPriceCalculator.defaultPrice(rateTable, 11, 17, 80).toFormat()).toBe("R$136.00");
-      expect(DialPriceCalculator.defaultPrice(rateTable, 18, 11, 200).toFormat()).toBe("R$380.00");
+      expect(DialPriceCalculator.defaultPrice(rateTable, 11, 16, 20)!.toFormat()).toBe("R$38.00");
+      expect(DialPriceCalculator.defaultPrice(rateTable, 11, 17, 80)!.toFormat()).toBe("R$136.00");
+      expect(DialPriceCalculator.defaultPrice(rateTable, 18, 11, 200)!.toFormat()).toBe("R$380.00");
     });
-  });
+
+    test("Null rates", () =>
+    {
+      expect(DialPriceCalculator.defaultPrice(rateTable, 16, 17, 20)).toBe(null);
+    });
+  }); 
 });
 
 describe("faleMaisPrice()", () =>
 {
-  const rateTableData = new Map<number, Map<number, Dinero.Dinero>>();
+  const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
 
-  rateTableData.set(11, new Map<number, Dinero.Dinero>());
+  rateTableData.set(11, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(11)!.set(11, DineroReal(0));
   rateTableData.get(11)!.set(16, DineroReal(190e2));
   rateTableData.get(11)!.set(17, DineroReal(170e2));
   rateTableData.get(11)!.set(18, DineroReal(90e2));
 
-  rateTableData.set(16, new Map<number, Dinero.Dinero>());
+  rateTableData.set(16, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(16)!.set(11, DineroReal(290e2));
-  rateTableData.get(16)!.set(16, DineroReal(0));
-  rateTableData.get(16)!.set(17, DineroReal(0));
-  rateTableData.get(16)!.set(18, DineroReal(0));
+  rateTableData.get(16)!.set(16, null);
+  rateTableData.get(16)!.set(17, null);
+  rateTableData.get(16)!.set(18, null);
 
-  rateTableData.set(17, new Map<number, Dinero.Dinero>());
+  rateTableData.set(17, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(17)!.set(11, DineroReal(270e2));
-  rateTableData.get(17)!.set(16, DineroReal(0));
-  rateTableData.get(17)!.set(17, DineroReal(0));
-  rateTableData.get(17)!.set(18, DineroReal(0));
+  rateTableData.get(17)!.set(16, null);
+  rateTableData.get(17)!.set(17, null);
+  rateTableData.get(17)!.set(18, null);
 
-  rateTableData.set(18, new Map<number, Dinero.Dinero>());
+  rateTableData.set(18, new Map<number, Dinero.Dinero | null>());
   rateTableData.get(18)!.set(11, DineroReal(190e2));
-  rateTableData.get(18)!.set(16, DineroReal(0));
-  rateTableData.get(18)!.set(17, DineroReal(0));
-  rateTableData.get(18)!.set(18, DineroReal(0));
+  rateTableData.get(18)!.set(16, null);
+  rateTableData.get(18)!.set(17, null);
+  rateTableData.get(18)!.set(18, null);
 
   const rateTable = new DialCodePriceRateTable(rateTableData);
 
@@ -130,18 +135,23 @@ describe("faleMaisPrice()", () =>
 
     test("dialLengthInMinutes must be a non-negative integer", () =>
     {
-      expect(() => DialPriceCalculator.faleMaisPrice(rateTable, 11, 19, -10, FaleMaisPlan.FaleMais60)).toThrow(`dialLengthInMinutes (-10) must be a non-negative integer!`);
-      expect(() => DialPriceCalculator.faleMaisPrice(rateTable, 11, 19, 3.1415, FaleMaisPlan.FaleMais60)).toThrow(`dialLengthInMinutes (3.1415) must be a non-negative integer!`);
+      expect(() => DialPriceCalculator.faleMaisPrice(rateTable, 11, 18, -10, FaleMaisPlan.FaleMais60)).toThrow(`dialLengthInMinutes (-10) must be a non-negative integer!`);
+      expect(() => DialPriceCalculator.faleMaisPrice(rateTable, 11, 18, 3.1415, FaleMaisPlan.FaleMais60)).toThrow(`dialLengthInMinutes (3.1415) must be a non-negative integer!`);
     });
   });
 
   describe("Post Conditions", () =>
   {
-    test("Happy path", () =>
+    test("Non null rates", () =>
     {
-      expect(DialPriceCalculator.faleMaisPrice(rateTable, 11, 16, 20, FaleMaisPlan.FaleMais30).toFormat()).toBe("R$0.00");
-      expect(DialPriceCalculator.faleMaisPrice(rateTable, 11, 17, 80, FaleMaisPlan.FaleMais60).toFormat()).toBe("R$37.40");
-      expect(DialPriceCalculator.faleMaisPrice(rateTable, 18, 11, 200, FaleMaisPlan.FaleMais120).toFormat()).toBe("R$167.20");
+      expect(DialPriceCalculator.faleMaisPrice(rateTable, 11, 16, 20, FaleMaisPlan.FaleMais30)!.toFormat()).toBe("R$0.00");
+      expect(DialPriceCalculator.faleMaisPrice(rateTable, 11, 17, 80, FaleMaisPlan.FaleMais60)!.toFormat()).toBe("R$37.40");
+      expect(DialPriceCalculator.faleMaisPrice(rateTable, 18, 11, 200, FaleMaisPlan.FaleMais120)!.toFormat()).toBe("R$167.20");
+    });
+
+    test("Null rates", () =>
+    {
+      expect(DialPriceCalculator.defaultPrice(rateTable, 16, 17, 20)).toBe(null);
     });
   });
 });

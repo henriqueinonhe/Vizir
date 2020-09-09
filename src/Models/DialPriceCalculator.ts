@@ -69,12 +69,19 @@ export default {
   defaultPrice(dialCodePriceRateTable : DialCodePriceRateTable, 
                fromDialCode : number, 
                toDialCode : number, 
-               dialLengthInMinutes : number) : Dinero.Dinero
+               dialLengthInMinutes : number) : Dinero.Dinero | null
   {
     validateDialLengthInMinutes(dialLengthInMinutes);
 
     const priceRate = dialCodePriceRateTable.getRate(fromDialCode, toDialCode);
-    return priceRate.multiply(dialLengthInMinutes, "HALF_DOWN");
+    if(priceRate === null)
+    {
+      return null;
+    }
+    else
+    {
+      return priceRate.multiply(dialLengthInMinutes, "HALF_DOWN");
+    }
   },
 
   /**
@@ -96,12 +103,17 @@ export default {
                 fromDialCode : number, 
                 toDialCode : number, 
                 dialLengthInMinutes : number, 
-                faleMaisPlan : FaleMaisPlan) : Dinero.Dinero
+                faleMaisPlan : FaleMaisPlan) : Dinero.Dinero | null
   {
+    const priceRate = dialCodePriceRateTable.getRate(fromDialCode, toDialCode);
+    if(priceRate === null)
+    {
+      return null;
+    }
+
     validateDialLengthInMinutes(dialLengthInMinutes);
 
     const faleMaisMinutesLimit = faleMaisPlanMinutes(faleMaisPlan);
-    const priceRate = dialCodePriceRateTable.getRate(fromDialCode, toDialCode);
     const overLimitPriceRate = priceRate.multiply(1.1);
     const minutesOverPlanLimit = dialLengthInMinutes > faleMaisMinutesLimit ?
       dialLengthInMinutes - faleMaisMinutesLimit : 0;
