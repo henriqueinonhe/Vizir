@@ -1,7 +1,6 @@
 import DialCodePriceRateTable from "../../src/Models/DialCodePriceRateTable";
 import Dinero from "dinero.js";
-
-const DineroReal = (amount : number) : Dinero.Dinero => Dinero({amount, currency: "BRL", precision: 4});
+import { DineroReal } from "../../src/Utils/Utils";
 
 describe("constructor", () =>
 {
