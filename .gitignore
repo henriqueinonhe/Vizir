@@ -3,5 +3,5 @@ node_modules
 build
 coverage
 index.js
-public/bundle.js
 index.js.map
+public/bundle.js
