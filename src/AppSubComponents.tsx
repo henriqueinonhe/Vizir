@@ -47,9 +47,10 @@ export const PriceCalculator = styled.div`
 export const FieldContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 215px;
+  width: 235px;
   margin: 10px 0;
   align-items: center;
+  padding: 10px;
 `;
 
 export const InputLabel = styled.label`
@@ -105,6 +106,7 @@ export const CalculateButton = styled.button`
   color: ${inputColor};
   height: ${inputHeight};
   border: 1px solid white;
+  max-width: 418px;
   
   &:focus {
     outline: none;

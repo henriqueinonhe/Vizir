@@ -5,6 +5,7 @@ import { DineroReal } from "./Utils/Utils";
 import DialCodeCalculator from "./Models/DialPriceCalculator";
 import DialCodePriceRateTable from "./Models/DialCodePriceRateTable";
 import { Main, PriceCalculator, PriceCalculatorTitle, FieldContainer, InputLabel, NumberInput, FaleMaisSelect, FaleMaisOption, CalculateButton, DisplayContainer, DisplayLabel, PriceDisplay } from "./AppSubComponents";
+import Theme from "./Theming/theme";
 
 //Temp Table
 const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
@@ -116,7 +117,7 @@ function App() : JSX.Element
         <CalculateButton onClick={handleCalculate}>Calcular</CalculateButton>
 
         <DisplayContainer>
-          <FieldContainer>
+          <FieldContainer  style={{border: "1px dashed", borderColor: Theme.color.secondary.darker}}>
             <DisplayLabel>Com FaleMais</DisplayLabel>
             <PriceDisplay>{faleMaisPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
           </FieldContainer>
