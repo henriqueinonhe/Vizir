@@ -5,7 +5,7 @@ import { DineroReal } from "./Utils/Utils";
 import DialCodeCalculator from "./Models/DialPriceCalculator";
 import DialCodePriceRateTable from "./Models/DialCodePriceRateTable";
 import { Main, PriceCalculator, PriceCalculatorTitle, FieldContainer, InputLabel, NumberInput, FaleMaisSelect, FaleMaisOption, CalculateButton, DisplayContainer, DisplayLabel, PriceDisplay } from "./AppSubComponents";
-import Theme from "./Theming/theme";
+import Theme from "./Theming/Theme";
 
 //Temp Table
 const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();

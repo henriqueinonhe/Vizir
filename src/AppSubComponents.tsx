@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Theme from "./Theming/theme";
+import Theme from "./Theming/Theme";
 
 const breakpoints = Theme.breakpoints;
 const primaryColor = Theme.color.primary;

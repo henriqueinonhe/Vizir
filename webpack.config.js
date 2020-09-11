@@ -4,7 +4,7 @@ const nodeExternals = require("webpack-node-externals");
 
 const frontend = {
   mode: "development",
-  entry: "./src/app.tsx",
+  entry: "./src/App.tsx",
   output: {
     path: path.resolve(__dirname, "./public"),
     filename: "bundle.js"
