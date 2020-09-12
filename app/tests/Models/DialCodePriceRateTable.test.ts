@@ -187,3 +187,111 @@ describe("getRate()", () =>
     });
   });
 });
+
+describe("serialize()", () =>
+{
+  describe("Post Conditions", () =>
+  {
+    test("Happy path", () => 
+    {
+      const tableData = new Map<number, Map<number, Dinero.Dinero | null>>();
+
+      tableData.set(11, new Map<number, Dinero.Dinero | null>());
+      tableData.get(11)!.set(11, DineroReal(0));
+      tableData.get(11)!.set(16, DineroReal(190e2));
+      tableData.get(11)!.set(17, DineroReal(170e2));
+      tableData.get(11)!.set(18, DineroReal(90e2));
+
+      tableData.set(16, new Map<number, Dinero.Dinero | null>());
+      tableData.get(16)!.set(11, DineroReal(290e2));
+      tableData.get(16)!.set(16, null);
+      tableData.get(16)!.set(17, null);
+      tableData.get(16)!.set(18, null);
+
+      tableData.set(17, new Map<number, Dinero.Dinero | null>());
+      tableData.get(17)!.set(11, DineroReal(270e2));
+      tableData.get(17)!.set(16, null);
+      tableData.get(17)!.set(17, null);
+      tableData.get(17)!.set(18, null);
+
+      tableData.set(18, new Map<number, Dinero.Dinero | null>());
+      tableData.get(18)!.set(11, DineroReal(190e2));
+      tableData.get(18)!.set(16, null);
+      tableData.get(18)!.set(17, null);
+      tableData.get(18)!.set(18, null);
+
+      const table = new DialCodePriceRateTable(tableData);
+
+      expect(table.serialize()).toStrictEqual([
+        { fromDialCode: 11, toDialCode: 11, priceRate: 0 },
+        { fromDialCode: 11, toDialCode: 16, priceRate: 19000 },
+        { fromDialCode: 11, toDialCode: 17, priceRate: 17000 },
+        { fromDialCode: 11, toDialCode: 18, priceRate: 9000 },
+        { fromDialCode: 16, toDialCode: 11, priceRate: 29000 },
+        { fromDialCode: 16, toDialCode: 16, priceRate: null },
+        { fromDialCode: 16, toDialCode: 17, priceRate: null },
+        { fromDialCode: 16, toDialCode: 18, priceRate: null },
+        { fromDialCode: 17, toDialCode: 11, priceRate: 27000 },
+        { fromDialCode: 17, toDialCode: 16, priceRate: null },
+        { fromDialCode: 17, toDialCode: 17, priceRate: null },
+        { fromDialCode: 17, toDialCode: 18, priceRate: null },
+        { fromDialCode: 18, toDialCode: 11, priceRate: 19000 },
+        { fromDialCode: 18, toDialCode: 16, priceRate: null },
+        { fromDialCode: 18, toDialCode: 17, priceRate: null },
+        { fromDialCode: 18, toDialCode: 18, priceRate: null }
+      ]);
+
+    });
+  });
+});
+
+describe("deserialize()", () =>
+{
+  describe("Pre Conditions", () =>
+  {
+    test("Serialized data actually corresponds to a DialCodePriceRateTable", () =>
+    {
+      //Serialized data must be array
+      expect(() => DialCodePriceRateTable.deserialize({fromDialCode: 2})).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+      expect(() => DialCodePriceRateTable.deserialize({})).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+      expect(() => DialCodePriceRateTable.deserialize(1)).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+      expect(() => DialCodePriceRateTable.deserialize("asdasasd")).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+      expect(() => DialCodePriceRateTable.deserialize(undefined)).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+      expect(() => DialCodePriceRateTable.deserialize(null)).toThrow("Serialized DialCodePriceRateTable is expected to be an array!");
+
+      //Serialized data must have the right structure and data types
+      expect(() => DialCodePriceRateTable.deserialize([{fromDialCode: 2}])).toThrow();
+      expect(() => DialCodePriceRateTable.deserialize([{fromDialCode: null, toDialCode: 1, priceRate: 1000}])).toThrow();
+      expect(() => DialCodePriceRateTable.deserialize([{fromDialCode: [], toDialCode: 1, priceRate: 1000}])).toThrow();
+      expect(() => DialCodePriceRateTable.deserialize([{fromDialCode: {}, toDialCode: 1, priceRate: 1000}])).toThrow();
+      expect(() => DialCodePriceRateTable.deserialize([{fromDialCode: "dobs", toDialCode: 1, priceRate: 1000}])).toThrow();
+    });
+  });
+
+  describe("Post Conditions", () =>
+  {
+    test("Happy path", () =>
+    {
+      const serializedData = [
+        { fromDialCode: 11, toDialCode: 11, priceRate: 0 },
+        { fromDialCode: 11, toDialCode: 16, priceRate: 19000 },
+        { fromDialCode: 11, toDialCode: 17, priceRate: 17000 },
+        { fromDialCode: 11, toDialCode: 18, priceRate: 9000 },
+        { fromDialCode: 16, toDialCode: 11, priceRate: 29000 },
+        { fromDialCode: 16, toDialCode: 16, priceRate: null },
+        { fromDialCode: 16, toDialCode: 17, priceRate: null },
+        { fromDialCode: 16, toDialCode: 18, priceRate: null },
+        { fromDialCode: 17, toDialCode: 11, priceRate: 27000 },
+        { fromDialCode: 17, toDialCode: 16, priceRate: null },
+        { fromDialCode: 17, toDialCode: 17, priceRate: null },
+        { fromDialCode: 17, toDialCode: 18, priceRate: null },
+        { fromDialCode: 18, toDialCode: 11, priceRate: 19000 },
+        { fromDialCode: 18, toDialCode: 16, priceRate: null },
+        { fromDialCode: 18, toDialCode: 17, priceRate: null },
+        { fromDialCode: 18, toDialCode: 18, priceRate: null }
+      ];
+
+      expect(DialCodePriceRateTable.deserialize(serializedData).serialize()).toStrictEqual(serializedData);
+    });
+  });
+});

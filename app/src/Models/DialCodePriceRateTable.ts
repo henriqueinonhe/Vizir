@@ -1,6 +1,7 @@
 import Dinero from "dinero.js";
+import Utils, { JSONTypes, DineroReal } from "../Utils/Utils";
 
-type DialCodePriceRateTableData = Map<number, Map<number, Dinero.Dinero | null>>;
+export type DialCodePriceRateTableData = Map<number, Map<number, Dinero.Dinero | null>>;
 
 /**
  * Represents a table that stores the price rates
@@ -165,7 +166,70 @@ export default class DialCodePriceRateTable
       const rateClone = Dinero({amount: rate.getAmount(), currency: rate.getCurrency(), precision: rate.getPrecision()});
       return rateClone;
     }
-  }  
+  }
+
+  /**
+   * Serializes [[DialCodePriceRateTable]].
+   * 
+   * Pre Conditions:
+   * None
+   */
+  public serialize() : Array<{fromDialCode : number; toDialCode : number; priceRate : number | null}> 
+  {
+    const serializedData : Array<{fromDialCode : number; toDialCode : number; priceRate : number | null}> = [];
+    for(const fromDialCode of this.data.keys())
+    {
+      const row = this.data.get(fromDialCode)!;
+      for(const toDialCode of row.keys())
+      {
+        const priceRate = row.get(toDialCode) === null ? null : row.get(toDialCode)!.getAmount();
+        serializedData.push({fromDialCode, toDialCode, priceRate});
+      }
+    }
+
+    return serializedData;
+  }
+
+  /**
+   * Deserializes [[DialCodePriceRateTable]].
+   * 
+   * Pre Conditions:
+   * - `serializedData` must actually describe a [[DialCodePriceRateTable]],
+   * which is checked by inspecting `serializedData` structure and data types.
+   * 
+   * @param serializedData 
+   */
+  public static deserialize(serializedData : unknown) : DialCodePriceRateTable
+  {
+    const data = new Map<number, Map<number, Dinero.Dinero | null>>();
+
+    if(!Array.isArray(serializedData))
+    {
+      throw new Error("Serialized DialCodePriceRateTable is expected to be an array!");
+    }
+
+    for(const entry of serializedData)
+    {
+      const requiredProperties = [
+        {key: "fromDialCode", types: [JSONTypes.Number]},
+        {key: "toDialCode", types: [JSONTypes.Number]},
+        {key: "priceRate", types: [JSONTypes.Number, JSONTypes.Null]}
+      ];
+      Utils.checkPropertiesCompliance(requiredProperties, entry);
+
+      
+      const {fromDialCode, toDialCode, priceRate} = entry;
+      if(!data.has(fromDialCode))
+      {
+        data.set(fromDialCode, new Map<number, Dinero.Dinero | null>());
+      }
+
+      const deserializedPriceRate = priceRate === null ? null : DineroReal(priceRate);
+      data.get(fromDialCode)!.set(toDialCode, deserializedPriceRate);
+    }
+
+    return new DialCodePriceRateTable(data);
+  }
 
   private data : DialCodePriceRateTableData;
 }
