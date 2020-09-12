@@ -1,43 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { FaleMaisPlan } from "./Models/DialPriceCalculator";
-import { DineroReal } from "./Utils/Utils";
 import DialCodeCalculator from "./Models/DialPriceCalculator";
 import DialCodePriceRateTable from "./Models/DialCodePriceRateTable";
 import { Main, PriceCalculator, PriceCalculatorTitle, FieldContainer, InputLabel, NumberInput, FaleMaisSelect, FaleMaisOption, CalculateButton, DisplayContainer, DisplayLabel, PriceDisplay } from "./AppSubComponents";
 import Theme from "./Theming/Theme";
-
-//Temp Table
-const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
-
-rateTableData.set(11, new Map<number, Dinero.Dinero | null>());
-rateTableData.get(11)!.set(11, null);
-rateTableData.get(11)!.set(16, DineroReal(190e2));
-rateTableData.get(11)!.set(17, DineroReal(170e2));
-rateTableData.get(11)!.set(18, DineroReal(90e2));
-
-rateTableData.set(16, new Map<number, Dinero.Dinero | null>());
-rateTableData.get(16)!.set(11, DineroReal(290e2));
-rateTableData.get(16)!.set(16, null);
-rateTableData.get(16)!.set(17, null);
-rateTableData.get(16)!.set(18, null);
-
-rateTableData.set(17, new Map<number, Dinero.Dinero | null>());
-rateTableData.get(17)!.set(11, DineroReal(270e2));
-rateTableData.get(17)!.set(16, null);
-rateTableData.get(17)!.set(17, null);
-rateTableData.get(17)!.set(18, null);
-
-rateTableData.set(18, new Map<number, Dinero.Dinero | null>());
-rateTableData.get(18)!.set(11, DineroReal(190e2));
-rateTableData.get(18)!.set(16, null);
-rateTableData.get(18)!.set(17, null);
-rateTableData.get(18)!.set(18, null);
-
-const rateTable = new DialCodePriceRateTable(rateTableData);
+import DialCodePriceTableController from "./Controllers/DialCodePriceTableController";
 
 function App() : JSX.Element
 {
+  const [rateTable, setRateTable] = useState<DialCodePriceRateTable>(new DialCodePriceRateTable(new Map<number, Map<number, Dinero.Dinero | null>>()));
   const [fromDialCode, setFromDialCode] = useState<number>(11);
   const [toDialCode, setToDialCode] = useState<number>(16);
   const [dialLengthInMinutes, setDialLengthInMinutes] = useState<number>(0);
@@ -65,6 +37,14 @@ function App() : JSX.Element
       setFaleMaisPrice(null);
     }
   }
+
+  useEffect(() => 
+  {
+    (async () =>
+    {
+      setRateTable(await DialCodePriceTableController.getPriceRateTable());
+    })();
+  }, []);
 
   useEffect(() =>
   {
