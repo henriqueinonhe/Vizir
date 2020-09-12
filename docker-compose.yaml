@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  app:
+    build: ./app
+    image: telzir-app
+    container_name: telzir-app-instance
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - database
+    
+  database:
+    build: ./database
+    image: telzir-database
+    container_name: telzir-database-instance
+    ports:
+      - "8080:27017"
