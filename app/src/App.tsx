@@ -42,7 +42,8 @@ function App() : JSX.Element
   {
     (async () =>
     {
-      setRateTable(await DialCodePriceTableController.getPriceRateTable());
+      const tableData = await DialCodePriceTableController.getPriceRateTableData();
+      setRateTable(DialCodePriceRateTable.deserialize(tableData));
     })();
   }, []);
 

@@ -2,7 +2,7 @@ import DialPriceCalculator, { faleMaisPlanMinutes, FaleMaisPlan } from "../../sr
 import { DineroReal } from "../../src/Utils/Utils";
 import DialCodePriceRateTable from "../../src/Models/DialCodePriceRateTable";
 
-describe("faleMaisPlanMinutes()", () =>
+describe("[Unit] faleMaisPlanMinutes()", () =>
 {
   describe("Pre Conditions", () =>
   {
@@ -26,7 +26,7 @@ describe("faleMaisPlanMinutes()", () =>
   });
 });
 
-describe("defaultPrice()", () =>
+describe("[Unit] defaultPrice()", () =>
 {
   const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
 
@@ -91,7 +91,7 @@ describe("defaultPrice()", () =>
   }); 
 });
 
-describe("faleMaisPrice()", () =>
+describe("[Unit] faleMaisPrice()", () =>
 {
   const rateTableData = new Map<number, Map<number, Dinero.Dinero | null>>();
 

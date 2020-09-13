@@ -4,7 +4,6 @@ import Theme from "./Theming/Theme";
 const breakpoints = Theme.breakpoints;
 const primaryColor = Theme.color.primary;
 const secondaryColor = Theme.color.secondary;
-const fontColor = Theme.color.font.default;
 const inputHeight = "28px";
 const inputBorderRadius = "3px";
 const inputBackgroundColor = primaryColor.main;

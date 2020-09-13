@@ -11,13 +11,14 @@
     "strictNullChecks": true, 
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "resolveJsonModule": true 
   },
   "exclude": ["node_modules"],
   "typedocOptions": {
     "out": "docs",
     "inputFiles": "./src",
-    "mode": "file",
+    "mode": "module",
     "ignoreCompilerErrors": true,
     "excludeNotExported": true
   }

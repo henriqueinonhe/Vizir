@@ -1,8 +1,6 @@
 import Utils, { JSONTypes } from "../../src/Utils/Utils";
 
-test("", () => {});
-
-describe("checkPropertiesCompliance", () =>
+describe("[Unit] checkPropertiesCompliance", () =>
 {
   describe("Post Conditions", () =>
   {

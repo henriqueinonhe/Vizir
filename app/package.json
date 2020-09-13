@@ -9,14 +9,18 @@
         "collectCoverage": true,
         "collectCoverageFrom": [
             "./src/**/*.ts"
-        ]
+        ],
+        "testURL": "http://localhost:3000"
     },
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "test": "jest --runInBand",
+        "unit-test": "jest -t=\\[Unit\\]",
+        "integration-test": "jest -t=\\[Integration\\]",
+        "ui-test" : "jest -t=\\[UI\\]",
+        "test": "jest",
         "build": "webpack",
-        "docs": "typedoc",
+        "docs": "rm docs -r && typedoc",
         "watch": "webpack --watch"
     },
     "devDependencies": {

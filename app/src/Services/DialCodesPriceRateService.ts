@@ -1,12 +1,21 @@
 import MongoDB from "mongodb";
-import DatabaseService from "./DatabaseService";
 
-
-export default {
-  collectionName: "DialCodesPriceTableData",
-  async getPriceRateTableData() : Promise<unknown>
+/**
+ * Mediates interaction with database regarding
+ * dial codes price rates.
+ */
+export default class DialCodesPriceRateService
+{
+  /**
+   * Retrieves price rate table data.
+   * 
+   * Pre Conditions:
+   * - Must receive appropriate response from database.
+   */
+  public static async getPriceRateTableData(database : MongoDB.Db) : Promise<unknown>
   {
-    const telzirDatabase = await DatabaseService.getTelzirDatabase();
-    return await telzirDatabase.collection(this.collectionName).find({}).toArray();
+    return await database.collection(DialCodesPriceRateService.collectionName).find({}).toArray();
   }
-};
+
+  public static collectionName = "DialCodesPriceTableData";
+}

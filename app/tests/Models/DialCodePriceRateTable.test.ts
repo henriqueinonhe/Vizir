@@ -2,7 +2,7 @@ import DialCodePriceRateTable from "../../src/Models/DialCodePriceRateTable";
 import Dinero from "dinero.js";
 import { DineroReal } from "../../src/Utils/Utils";
 
-describe("constructor", () =>
+describe("[Unit] constructor", () =>
 {
   describe("Pre Conditions", () =>
   {
@@ -129,7 +129,7 @@ describe("constructor", () =>
   });
 });
 
-describe("getRate()", () =>
+describe("[Unit] getRate()", () =>
 {
   const tableData = new Map<number, Map<number, Dinero.Dinero | null>>();
 
@@ -188,7 +188,7 @@ describe("getRate()", () =>
   });
 });
 
-describe("serialize()", () =>
+describe("[Unit] serialize()", () =>
 {
   describe("Post Conditions", () =>
   {
@@ -245,7 +245,7 @@ describe("serialize()", () =>
   });
 });
 
-describe("deserialize()", () =>
+describe("[Unit] deserialize()", () =>
 {
   describe("Pre Conditions", () =>
   {

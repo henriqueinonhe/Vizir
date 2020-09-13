@@ -9,7 +9,7 @@ async function main() : Promise<void>
   dotenv.config();
   try
   {
-    await DatabaseService.connect();
+    await DatabaseService.getTelzirDatabase(process.env.DB_URI!);
   }
   catch(error)
   {

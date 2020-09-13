@@ -52,7 +52,8 @@ function validateDialLengthInMinutes(lengthInMinutes : number) : void
   }
 }
 
-export default {
+export default class DialPriceCalculator
+{
   /**
    * Default method for calculating dial prices.
    * 
@@ -66,10 +67,10 @@ export default {
    * @param toDialCode 
    * @param dialLengthInMinutes 
    */
-  defaultPrice(dialCodePriceRateTable : DialCodePriceRateTable, 
-               fromDialCode : number, 
-               toDialCode : number, 
-               dialLengthInMinutes : number) : Dinero.Dinero | null
+  public static defaultPrice(dialCodePriceRateTable : DialCodePriceRateTable, 
+                             fromDialCode : number, 
+                             toDialCode : number, 
+                             dialLengthInMinutes : number) : Dinero.Dinero | null
   {
     validateDialLengthInMinutes(dialLengthInMinutes);
 
@@ -82,7 +83,7 @@ export default {
     {
       return priceRate.multiply(dialLengthInMinutes, "HALF_DOWN");
     }
-  },
+  }
 
   /**
    * Method for calculating dial prices whenever
@@ -99,11 +100,11 @@ export default {
    * @param dialLengthInMinutes 
    * @param faleMaisMinutesLimit 
    */
-  faleMaisPrice(dialCodePriceRateTable : DialCodePriceRateTable, 
-                fromDialCode : number, 
-                toDialCode : number, 
-                dialLengthInMinutes : number, 
-                faleMaisPlan : FaleMaisPlan) : Dinero.Dinero | null
+  public static faleMaisPrice(dialCodePriceRateTable : DialCodePriceRateTable, 
+                              fromDialCode : number, 
+                              toDialCode : number, 
+                              dialLengthInMinutes : number, 
+                              faleMaisPlan : FaleMaisPlan) : Dinero.Dinero | null
   {
     const priceRate = dialCodePriceRateTable.getRate(fromDialCode, toDialCode);
     if(priceRate === null)
@@ -120,4 +121,4 @@ export default {
     
     return overLimitPriceRate.multiply(minutesOverPlanLimit);
   }
-};
+}

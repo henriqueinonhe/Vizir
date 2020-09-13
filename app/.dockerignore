@@ -11,3 +11,4 @@ tests
 .npmrc
 README.md
 Dockerfile
+docs

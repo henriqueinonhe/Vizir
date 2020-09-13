@@ -1,31 +1,45 @@
 import MongoDB from "mongodb";
 
-let telzirDatabase : MongoDB.Db;
+let telzirDatabase : MongoDB.MongoClient;
 
-export default {
-  async connect() : Promise<void>
+/**
+ * Mediates database interaction.
+ */
+export default class DatabaseService
+{
+  /**
+   * Connects to a database and returns client.
+   * 
+   * Pre Conditions:
+   * - Connection must be successful.
+   */
+  public static async connect(uri : string) : Promise<MongoDB.MongoClient>
   {
     const mongoClient = new MongoDB.MongoClient(
-      process.env.DB_URI!,
+      uri,
       { useUnifiedTopology: true }
     );
 
-    await mongoClient.connect();
-  },
-  async getTelzirDatabase() : Promise<MongoDB.Db>
-  {
-    const mongoClient = new MongoDB.MongoClient(
-      process.env.DB_URI!,
-      { useUnifiedTopology: true }
-    );
-
-    if(!telzirDatabase)
-    {
-      await mongoClient.connect();
-    }
-
-    return mongoClient.db("telzir");
+    return await mongoClient.connect();
   }
 
-  
-};
+  /**
+   * Returns instance of telzir database connection.
+   * 
+   * Acts as a singleton always returning the same instance.
+   * 
+   * Pre Conditions:
+   * - Connection must be successful.
+   */
+  public static async getTelzirDatabase(uri : string) : Promise<MongoDB.MongoClient>
+  {
+    if(!telzirDatabase)
+    {
+      telzirDatabase = await DatabaseService.connect(uri);
+    }
+
+    return telzirDatabase;
+  }
+
+  public static telzirDatabaseName = "telzir";
+}

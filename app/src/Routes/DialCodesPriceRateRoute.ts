@@ -1,5 +1,6 @@
 import express from "express";
 import DialCodesPriceRateService from "../Services/DialCodesPriceRateService";
+import DatabaseService from "../Services/DatabaseService";
 
 const router = express.Router();
 
@@ -7,11 +8,13 @@ router.get("/", async (req, res) =>
 {
   try
   {
-    res.send(await DialCodesPriceRateService.getPriceRateTableData());
+    const client = await DatabaseService.getTelzirDatabase(process.env.DB_URI!);
+    const database = client.db(DatabaseService.telzirDatabaseName);
+    res.send(await DialCodesPriceRateService.getPriceRateTableData(database));
   }
   catch(error)
   {
-    console.log(error);
+    console.error(error);
     res.status(500).send({error});
   }
 });
