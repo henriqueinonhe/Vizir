@@ -8,6 +8,7 @@ const inputHeight = "28px";
 const inputBorderRadius = "3px";
 const inputBackgroundColor = primaryColor.main;
 const inputColor = Theme.color.font.darkContrast;
+const dangerColor = Theme.color.danger.darkContrast;
 
 export const Main = styled.main`
   padding: 0 20px;
@@ -91,10 +92,15 @@ export const DisplayLabel = styled.span`
   color: ${secondaryColor.light};
 `;
 
-export const PriceDisplay = styled.span`
+interface PriceDisplayProps
+{
+  isUnavailable : boolean;
+}
+
+export const PriceDisplay = styled.span<PriceDisplayProps>`
   text-align: center;
   width: 100px;
-  color: ${secondaryColor.lighter};
+  color: ${props => props.isUnavailable ? dangerColor : secondaryColor.lighter};
 `;
 
 export const CalculateButton = styled.button`

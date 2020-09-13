@@ -107,12 +107,12 @@ function App() : JSX.Element
         <DisplayContainer>
           <FieldContainer  style={{border: "1px dashed", borderColor: Theme.color.secondary.darker}}>
             <DisplayLabel>Com FaleMais</DisplayLabel>
-            <PriceDisplay>{faleMaisPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
+            <PriceDisplay isUnavailable={!faleMaisPrice}>{faleMaisPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
           </FieldContainer>
 
           <FieldContainer>
             <DisplayLabel>Sem FaleMais</DisplayLabel>
-            <PriceDisplay>{defaultPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
+            <PriceDisplay isUnavailable={!defaultPrice}>{defaultPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
           </FieldContainer>
         </DisplayContainer>
 

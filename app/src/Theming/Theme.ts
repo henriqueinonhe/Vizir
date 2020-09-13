@@ -25,6 +25,9 @@ export default {
     font: {
       default: "#333",
       darkContrast: "#FFF"
+    },
+    danger: {
+      darkContrast: "#F54257"
     }
   }
 };
