@@ -7,8 +7,9 @@ describe("[Integration] getPriceRateTable()", () =>
   {
     test("Happy path", async () =>
     {
-      const receivedData = JSON.stringify(await DialCodePriceTableController.getPriceRateTableData());
-      expect(receivedData).toBe(JSON.stringify(expectedData));
+      const receivedData = await DialCodePriceTableController.getPriceRateTableData() as Array<{fromDialCode : number; toDialCode : number; priceRate : number}>;
+      const projectedData = receivedData.map(({fromDialCode, toDialCode, priceRate}) => ({fromDialCode, toDialCode, priceRate}));
+      expect(JSON.stringify(projectedData)).toBe(JSON.stringify(expectedData));
     });
   });
 });

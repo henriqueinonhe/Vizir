@@ -1,7 +1,7 @@
 import DialCodesPriceRateService from "../../src/Services/DialCodesPriceRateService";
 import DatabaseService from "../../src/Services/DatabaseService";
 import dotenv from "dotenv";
-import initialData from "./dialCodePriceTableinitialData.json";
+import expectedData from "./dialCodePriceTableinitialData.json";
 
 dotenv.config();
 
@@ -13,12 +13,12 @@ describe("[Integration] getPriceRateTableData()", () =>
     {
       const client = await DatabaseService.getTelzirDatabase(process.env.DB_URI!);
       const database = client.db(DatabaseService.telzirDatabaseName);
-      const data = await DialCodesPriceRateService.getPriceRateTableData(database);
-      const expectedData = initialData;
+      const data = await DialCodesPriceRateService.getPriceRateTableData(database) as Array<{fromDialCode : number; toDialCode : number; priceRate : number}>;
+      const projectedData = data.map(({fromDialCode, toDialCode, priceRate}) => ({fromDialCode, toDialCode, priceRate}));
 
-      expect(JSON.stringify(data)).toBe(JSON.stringify(expectedData));
+      expect(JSON.stringify(projectedData)).toBe(JSON.stringify(expectedData));
 
       client.close();
     });
   });
-});
+}); 

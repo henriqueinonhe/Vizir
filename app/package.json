@@ -17,7 +17,7 @@
         "dev": "nodemon index.js",
         "unit-test": "jest -t=\\[Unit\\]",
         "integration-test": "jest -t=\\[Integration\\]",
-        "ui-test" : "jest -t=\\[UI\\]",
+        "ui-test": "jest -t=\\[UI\\]",
         "test": "jest",
         "build": "webpack",
         "docs": "rm docs -r && typedoc",
