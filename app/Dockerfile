@@ -6,6 +6,6 @@ COPY . ./app
 
 WORKDIR /app
 RUN npm install --only=prod
-RUN npm run build
+RUN npm run prod-build
 
 ENTRYPOINT [ "npm" , "run", "start" ]
