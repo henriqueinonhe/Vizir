@@ -14,4 +14,4 @@ services:
     image: telzir-database
     container_name: telzir-database-instance
     ports:
-      - "27017"
+      - "3001:27017"
