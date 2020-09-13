@@ -1,8 +1,4 @@
-public/bundle.js
-public/bundle.js.map
-index.js
-index.js.map
-node_moules
+node_modules
 coverage
 tests
 .eslintrc.json
@@ -13,3 +9,6 @@ README.md
 Dockerfile
 docs
 .env
+src
+tsconfig.json
+webpack.config.js

@@ -2,13 +2,14 @@ FROM node:lts-alpine
 
 EXPOSE 3000
 
-COPY . ./app
+WORKDIR /usr/src/app
 
-WORKDIR /app
-RUN npm install --only=prod
-RUN npm run prod-build
+COPY . .
+
+RUN npm ci --production
 
 ENV DB_URI=DB_URI=mongodb://telzir-backend-admin:supersecretbackendadminpassword@database:27017/?retryWrites=true&w=majority
 
+USER node
 
 ENTRYPOINT [ "npm" , "run", "start" ]
