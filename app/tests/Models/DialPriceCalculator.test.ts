@@ -151,7 +151,7 @@ describe("[Unit] faleMaisPrice()", () =>
 
     test("Null rates", () =>
     {
-      expect(DialPriceCalculator.defaultPrice(rateTable, 16, 17, 20)).toBe(null);
+      expect(DialPriceCalculator.faleMaisPrice(rateTable, 16, 17, 20, FaleMaisPlan.FaleMais120)).toBe(null);
     });
   });
 });

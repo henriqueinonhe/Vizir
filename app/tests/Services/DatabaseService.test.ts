@@ -44,6 +44,10 @@ describe("[Integration] getTelzirDatabase()", () =>
       const dbName = client.db("telzir").databaseName;
       expect(dbName).toBe("telzir");
 
+      //Calling database again retrieves same instance
+      const newClient = await DatabaseService.getTelzirDatabase(process.env.DB_URI!);
+      expect(client).toBe(newClient);
+
       await client.close();
     });
   });
