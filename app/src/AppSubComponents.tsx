@@ -26,6 +26,10 @@ export const Main = styled.main`
   /* SVG Background by: SVGBackgrounds.com */
 `;
 
+export const H1 = styled.h1`
+  text-align: center;
+`;
+
 export const PriceCalculator = styled.div`
   display: flex;
   align-items: center;
