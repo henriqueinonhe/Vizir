@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
 import DatabaseService from "./Services/DatabaseService";
-import DialCodesPriceRateRoute from "./Routes/DialCodesPriceRateRoute";
+import DialCodesPriceRateRouter from "./Routers/DialCodesPriceRateRouter";
+import UsageDataReportRouter from "./Routers/UsageDataReportRouter";
 import compression from "compression";
 
 async function main() : Promise<void>
@@ -21,7 +22,8 @@ async function main() : Promise<void>
   expressApp.use(express.static("public"));
   expressApp.use(express.json());
   expressApp.use(compression());
-  expressApp.use("/dialCodesPriceRate", DialCodesPriceRateRoute);
+  expressApp.use("/dialCodesPriceRate", DialCodesPriceRateRouter);
+  expressApp.use("/usageData", UsageDataReportRouter);
 
   expressApp.listen(3000 || process.env.PORT, () =>
   {

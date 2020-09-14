@@ -17,5 +17,5 @@ export default class DialCodesPriceRateService
     return await database.collection(DialCodesPriceRateService.collectionName).find({}).toArray();
   }
 
-  public static collectionName = "DialCodesPriceTableData";
+  public static collectionName = "DialCodesPriceTableRateData";
 }

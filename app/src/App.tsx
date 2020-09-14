@@ -6,6 +6,7 @@ import DialCodePriceRateTable from "./Models/DialCodePriceRateTable";
 import { Main, PriceCalculator, PriceCalculatorTitle, FieldContainer, InputLabel, NumberInput, FaleMaisSelect, FaleMaisOption, CalculateButton, DisplayContainer, DisplayLabel, PriceDisplay, H1 } from "./AppSubComponents";
 import Theme from "./Theming/Theme";
 import DialCodePriceTableController from "./Controllers/DialCodePriceTableController";
+import UsageDataReportController from "./Controllers/UsageDataReportController";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() : JSX.Element
@@ -19,7 +20,7 @@ function App() : JSX.Element
   const [faleMaisPrice, setFaleMaisPrice] = useState<Dinero.Dinero | null>(null);
   const [isWaitingForPriceData, setIsWaitingForPriceData] = useState<boolean>(true);
 
-  function handleCalculate() : void
+  async function handleCalculate() : Promise<void>
   {
     try
     {
@@ -39,7 +40,10 @@ function App() : JSX.Element
       setFaleMaisPrice(null);
     }
 
-    
+    await UsageDataReportController.sendUsageData(fromDialCode.toString(), 
+                                                  toDialCode.toString(), 
+                                                  dialLengthInMinutes.toString(), 
+                                                  faleMaisPlan);
   }
 
   useEffect(() => 
