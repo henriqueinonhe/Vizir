@@ -5,7 +5,7 @@ services:
     image: telzir-app
     container_name: telzir-app-instance
     ports: 
-      - "3000:3000"
+      - "3002:3000"
     depends_on: 
       - database
     

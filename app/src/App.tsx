@@ -6,6 +6,7 @@ import DialCodePriceRateTable from "./Models/DialCodePriceRateTable";
 import { Main, PriceCalculator, PriceCalculatorTitle, FieldContainer, InputLabel, NumberInput, FaleMaisSelect, FaleMaisOption, CalculateButton, DisplayContainer, DisplayLabel, PriceDisplay } from "./AppSubComponents";
 import Theme from "./Theming/Theme";
 import DialCodePriceTableController from "./Controllers/DialCodePriceTableController";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() : JSX.Element
 {
@@ -16,6 +17,7 @@ function App() : JSX.Element
   const [faleMaisPlan, setFaleMaisPlan] = useState<FaleMaisPlan>(FaleMaisPlan.FaleMais30);
   const [defaultPrice, setDefaultPrice] = useState<Dinero.Dinero | null>(null);
   const [faleMaisPrice, setFaleMaisPrice] = useState<Dinero.Dinero | null>(null);
+  const [isWaitingForPriceData, setIsWaitingForPriceData] = useState<boolean>(true);
 
   function handleCalculate() : void
   {
@@ -36,6 +38,8 @@ function App() : JSX.Element
     {
       setFaleMaisPrice(null);
     }
+
+    
   }
 
   useEffect(() => 
@@ -46,6 +50,7 @@ function App() : JSX.Element
       {
         const tableData = await DialCodePriceTableController.getPriceRateTableData();
         setRateTable(DialCodePriceRateTable.deserialize(tableData));
+        setIsWaitingForPriceData(false);
       }
       catch(error)
       {
@@ -54,67 +59,66 @@ function App() : JSX.Element
     })();
   }, []);
 
-  useEffect(() =>
-  {
-    handleCalculate();
-  }, [fromDialCode, toDialCode, dialLengthInMinutes, faleMaisPlan]);
-
   return (
     <Main>
       <h1>Telzir</h1>
 
       <PriceCalculator>
         <PriceCalculatorTitle>Compare os Preços!</PriceCalculatorTitle>
-
-        <FieldContainer>
-          <InputLabel htmlFor="fromDialCodeInput">DDD de Origem</InputLabel>
-          <NumberInput 
-            value={fromDialCode.toString()}
-            onChange={(event) => {setFromDialCode(parseInt(event.target.value));}}
-            id="fromDialCodeInput"
-          />
-        </FieldContainer>
+        {isWaitingForPriceData ? 
+          <CircularProgress style={{color: Theme.color.primary.lighter}}/> :
+          <>
+            <FieldContainer>
+              <InputLabel htmlFor="fromDialCodeInput">DDD de Origem</InputLabel>
+              <NumberInput 
+                value={fromDialCode.toString()}
+                onChange={(event) => {setFromDialCode(parseInt(event.target.value));}}
+                id="fromDialCodeInput"
+              />
+            </FieldContainer>
         
-        <FieldContainer>
-          <InputLabel htmlFor="toDialCodeInput">DDD de Destino</InputLabel>
-          <NumberInput 
-            value={toDialCode.toString()}
-            onChange={(event) => {setToDialCode(parseInt(event.target.value));}}
-            id="toDialCodeInput"
-          />
-        </FieldContainer>
+            <FieldContainer>
+              <InputLabel htmlFor="toDialCodeInput">DDD de Destino</InputLabel>
+              <NumberInput 
+                value={toDialCode.toString()}
+                onChange={(event) => {setToDialCode(parseInt(event.target.value));}}
+                id="toDialCodeInput"
+              />
+            </FieldContainer>
 
-        <FieldContainer>
-          <InputLabel htmlFor="dialLengthInMinutesInput">Duração da Ligação (Minutos)</InputLabel>
-          <NumberInput 
-            value={dialLengthInMinutes.toString()}
-            onChange={(event) => {setDialLengthInMinutes(parseInt(event.target.value));}}
-            id="dialLengthInMinutesInput"
-          />
-        </FieldContainer>
+            <FieldContainer>
+              <InputLabel htmlFor="dialLengthInMinutesInput">Duração da Ligação (Minutos)</InputLabel>
+              <NumberInput 
+                value={dialLengthInMinutes.toString()}
+                onChange={(event) => {setDialLengthInMinutes(parseInt(event.target.value));}}
+                id="dialLengthInMinutesInput"
+              />
+            </FieldContainer>
 
-        <FieldContainer>
-          <InputLabel htmlFor="faleMaisPlanInput">Plano (FaleMais)</InputLabel>
-          <FaleMaisSelect value={faleMaisPlan} onChange={(event) => {setFaleMaisPlan(event.target.value as FaleMaisPlan);}} id="faleMaisPlanInput">
-            <FaleMaisOption value="FaleMais30">FaleMais30</FaleMaisOption>
-            <FaleMaisOption value="FaleMais60">FaleMais60</FaleMaisOption>
-            <FaleMaisOption value="FaleMais120">FaleMais120</FaleMaisOption>
-          </FaleMaisSelect>
-        </FieldContainer>
+            <FieldContainer>
+              <InputLabel htmlFor="faleMaisPlanInput">Plano (FaleMais)</InputLabel>
+              <FaleMaisSelect value={faleMaisPlan} onChange={(event) => {setFaleMaisPlan(event.target.value as FaleMaisPlan);}} id="faleMaisPlanInput">
+                <FaleMaisOption value="FaleMais30">FaleMais30</FaleMaisOption>
+                <FaleMaisOption value="FaleMais60">FaleMais60</FaleMaisOption>
+                <FaleMaisOption value="FaleMais120">FaleMais120</FaleMaisOption>
+              </FaleMaisSelect>
+            </FieldContainer>
 
-        <CalculateButton onClick={handleCalculate}>Calcular</CalculateButton>
+            <CalculateButton onClick={handleCalculate}>Calcular</CalculateButton>
 
-        <DisplayContainer>
-          <FieldContainer  style={{border: "1px dashed", borderColor: Theme.color.secondary.darker}}>
-            <DisplayLabel>Com FaleMais</DisplayLabel>
-            <PriceDisplay isUnavailable={!faleMaisPrice}>{faleMaisPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
-          </FieldContainer>
+            <DisplayContainer>
+              <FieldContainer  style={{border: "1px dashed", borderColor: Theme.color.secondary.darker}}>
+                <DisplayLabel>Com FaleMais</DisplayLabel>
+                <PriceDisplay isUnavailable={!faleMaisPrice}>{faleMaisPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
+              </FieldContainer>
 
-          <FieldContainer>
-            <DisplayLabel>Sem FaleMais</DisplayLabel>
-            <PriceDisplay isUnavailable={!defaultPrice}>{defaultPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
-          </FieldContainer>
-        </DisplayContainer>
+              <FieldContainer>
+                <DisplayLabel>Sem FaleMais</DisplayLabel>
+                <PriceDisplay isUnavailable={!defaultPrice}>{defaultPrice?.setLocale("pt-BR").toFormat() ?? "Não Disponível"}</PriceDisplay>
+              </FieldContainer>
+            </DisplayContainer>
+          </>
+        }
 
       </PriceCalculator>
     </Main>

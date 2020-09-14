@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Theme from "./Theming/Theme";
+import Button from "@material-ui/core/Button";
 
 const breakpoints = Theme.breakpoints;
 const primaryColor = Theme.color.primary;
@@ -103,19 +104,29 @@ export const PriceDisplay = styled.span<PriceDisplayProps>`
   color: ${props => props.isUnavailable ? dangerColor : secondaryColor.lighter};
 `;
 
-export const CalculateButton = styled.button`
-  width: 100%;
-  margin: 10px 0;
-  border: none;
-  background-color: ${primaryColor.darker};
-  color: ${inputColor};
-  height: ${inputHeight};
-  border: 1px solid white;
-  max-width: 418px;
-  
-  &:focus {
-    outline: none;
+export const CalculateButton = styled(Button)`
+  && {
+    width: 100%;
+    margin: 10px 0;
+    background-color: ${primaryColor.darker};
+    color: ${inputColor};
+    height: ${inputHeight};
+    border: 1px solid white;
+    max-width: 418px;
+    text-transform: none;
+    font-size: 16px;
+    font-weight: 500;
+    
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: ${primaryColor.darker};
+    }
+
   }
+
 `;
 
 export const FaleMaisSelect = styled.select`
