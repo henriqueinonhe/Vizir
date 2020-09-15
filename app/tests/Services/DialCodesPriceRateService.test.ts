@@ -1,7 +1,7 @@
 import DialCodesPriceRateService from "../../src/Services/DialCodesPriceRateService";
 import DatabaseService from "../../src/Services/DatabaseService";
 import dotenv from "dotenv";
-import expectedData from "./dialCodePriceTableinitialData.json";
+import expectedData from "./dialCodePriceTableInitialData.json";
 
 dotenv.config();
 
