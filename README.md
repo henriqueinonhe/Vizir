@@ -18,12 +18,12 @@ Table of Contents:
 1. [Requirements](#1-requirements)
 2. [Installation](#2-installation)
 3. [Running](#3-running)
-3.1 [Development](#31-development)
-3.2 [Production](#32-production)
+    3.1 [Development](#31-development)
+    3.2 [Production](#32-production)
 4. [Tests](#4-tests)
-5. Database(#5-database)
-6. Documentation(#6-documentation)
-7. FAQ(#7-faq)
+5. [Database](#5-database)
+6. [Documentation](#6-documentation)
+7. [FAQ](#7-faq)
 
 ## 1. Requirements
 To build the project *code* you need **[node](https://nodejs.org/en/)** and to build and run containers you need **[docker](https://www.docker.com/)**.
