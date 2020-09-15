@@ -11,7 +11,7 @@ router.post("/", async (req, res) =>
   try
   {
     await UsageDataReportService.storeUsageData(clientIp, fromDialCode, toDialCode, dialLength, faleMaisPlan);
-    res.status(201).send({clientIp, fromDialCode, toDialCode, dialLength, faleMaisPlan});
+    res.status(201).send({fromDialCode, toDialCode, dialLength, faleMaisPlan});
   }
   catch(error)
   {

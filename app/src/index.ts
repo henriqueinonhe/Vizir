@@ -25,7 +25,7 @@ async function main() : Promise<void>
   expressApp.use("/dialCodesPriceRate", DialCodesPriceRateRouter);
   expressApp.use("/usageData", UsageDataReportRouter);
 
-  expressApp.listen(3000 || process.env.PORT, () =>
+  expressApp.listen(process.env.PORT || 3000, () =>
   {
     console.log("Server up!");
   });
