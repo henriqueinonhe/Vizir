@@ -74,7 +74,7 @@ npm run prod-build && cd .. && docker-compose -f docker-compose.production.yaml 
 
 Cleanup:
 ```sh
-docker-compose -f docker-production.yaml down ---rmi all -v
+docker-compose -f docker-compose.production.yaml down --rmi all -v
 ```
 
 ## 4. Tests
