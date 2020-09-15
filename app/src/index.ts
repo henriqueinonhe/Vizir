@@ -9,10 +9,6 @@ async function main() : Promise<void>
 {
   //Initialization
   dotenv.config();
-  if(!process.env.DB_URI)
-  {
-    process.env.DB_URI = "mongodb://telzir-backend-admin:supersecretbackendadminpassword@localhost:3001/?retryWrites=true&w=majority";
-  }
 
   try
   {
