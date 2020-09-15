@@ -39,8 +39,7 @@ git clone https://github.com/henriqueinonhe/Vizir
 
 Install dependencies:
 ``` sh
-cd Vizir/app && \
-npm install 
+cd Vizir/app && npm install
 ```
 
 ## 3. Running
@@ -57,9 +56,7 @@ Development build uses a local bind volume and must be used to run tests.
 
 ``` sh
 #at .../Vizir/app
-npm run dev-build && \
-cd ../.. && \
-docker-compose -f docker-compose.development.yaml up --build
+npm run dev-build && cd ../.. && docker-compose -f docker-compose.development.yaml up --build
 ```
 
 Cleanup:
@@ -72,9 +69,7 @@ docker-compose -f docker-compose.development.yaml down --rmi all -v
 Lighweight build that installs only dev dependencies inside container.
 ``` sh
 #at .../Vizir/app
-npm run prod-build && \
-cd ../.. && \
-docker-compose -f docker-compose.production.yaml up --build
+npm run prod-build && cd ../.. && docker-compose -f docker-compose.production.yaml up --build
 ```
 
 Cleanup:
