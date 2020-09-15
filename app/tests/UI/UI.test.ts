@@ -2,7 +2,7 @@ import "expect-puppeteer";
 
 beforeAll(async () => 
 {
-  await page.goto("http://localhost:3000");
+  await page.goto("http://localhost:3000", {waitUntil: "networkidle0"});
 });
 
 describe("[UI] Page Initial State (Static)", () =>
@@ -24,7 +24,7 @@ describe("[UI] Page Initial State (Static)", () =>
     await expect(h1.evaluate(element => window.getComputedStyle(element).textAlign)).resolves.toBe("center");
   });
 
-  describe(`Inside form`, () =>
+  describe(`[UI] Inside form`, () =>
   {
     test(`H2`, async () =>
     {
