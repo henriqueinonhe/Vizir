@@ -11,3 +11,4 @@ docs
 src
 tsconfig.json
 webpack.config.js
+jest-puppeteer.config.js
