@@ -26,7 +26,7 @@
         "dev-watch": "webpack --env.NODE_ENV=development --watch",
         "prod-build": "webpack --env.NODE_ENV=production",
         "prod-watch": "webpack --env.NODE_ENV=production --watch",
-        "docs": "rm docs -r && typedoc"
+        "docs": "rm docs -r -f && typedoc"
     },
     "devDependencies": {
         "@babel/core": "^7.11.4",
