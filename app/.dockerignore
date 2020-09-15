@@ -8,7 +8,6 @@ tests
 README.md
 Dockerfile
 docs
-.env
 src
 tsconfig.json
 webpack.config.js

@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  app:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile.development
+    container_name: telzir-app-instance
+    volumes:
+      - type: bind
+        source: ./app
+        target: /usr/src/app
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - database
+    
+  database:
+    build: ./database
+    image: telzir-database
+    container_name: telzir-database-instance
+    ports:
+      - "3001:27017"

@@ -1,8 +1,9 @@
 version: "3.8"
 services:
   app:
-    build: ./app
-    image: telzir-app
+    build: 
+      context: ./app
+      dockerfile: Dockerfile.production
     container_name: telzir-app-instance
     ports: 
       - "3000:3000"
