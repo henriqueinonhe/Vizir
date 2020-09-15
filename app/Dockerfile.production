@@ -7,7 +7,11 @@ ENV PORT=3000
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY ./public .
+COPY .index.js .
+COPY .index.js.map .
+COPY package.json .
+COPY package-lock.json .
 
 RUN npm ci --production
 
