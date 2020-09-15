@@ -34,7 +34,7 @@ describe("[Integration] storeUsageData", () =>
       await expect(database.collection(UsageDataReportService.usageDataCollectionName).find({}).toArray()).resolves.toStrictEqual([]);
 
       await UsageDataReportService.storeUsageData("192.168.1.1", "11", "12", "60", "FaleMais30");
-      const storedData = await database.collection(UsageDataReportService.usageDataCollectionName).find({}).project({_id: 0, hashedClientIp : 0}).toArray();
+      const storedData = await database.collection(UsageDataReportService.usageDataCollectionName).find({}).project({_id: 0, hashedClientIp: 0, timestamp: 0}).toArray();
       expect(storedData).toStrictEqual([
         {
           fromDialCode: "11",

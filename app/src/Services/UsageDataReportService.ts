@@ -27,8 +27,9 @@ export default class UsageDataReportService
    */
   public static async storeUsageData(clientIp : string, fromDialCode : string, toDialCode : string, dialLength : string, faleMaisPlan : string) : Promise<void>
   {
+    const timestamp = new Date().toISOString();
     const hashedClientIp = crypto.createHash("sha1").update(clientIp).digest("hex");
-    const data = {hashedClientIp, fromDialCode, toDialCode, dialLength, faleMaisPlan};
+    const data = {timestamp, hashedClientIp, fromDialCode, toDialCode, dialLength, faleMaisPlan};
     const client = await DatabaseService.getTelzirDatabase(process.env.DB_URI!);
     const database = client.db(DatabaseService.telzirDatabaseName);
     await database.collection(UsageDataReportService.usageDataCollectionName).insertOne(data);
