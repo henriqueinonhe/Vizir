@@ -30,6 +30,8 @@ To build the project *code* you need **[node](https://nodejs.org/en/)** and to b
 
 To inspect the database you'll need **[mongo shell](https://docs.mongodb.com/manual/mongo/)**
 
+Tested with: Windows 10 Pro and Ubuntu 18.0.4
+
 ## 2. Installation
 
 Clone the repo:
@@ -49,6 +51,8 @@ There are two possible modes:
 - production
 
 Website is accessible at `localhost:3000` and database is accessible at `localhost:3001`, **make sure to leave these ports open**. 
+
+Note: You might need to run docker-compose with sudo.
 
 ### 3.1 Development
 
