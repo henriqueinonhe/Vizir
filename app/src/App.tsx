@@ -20,6 +20,9 @@ function App() : JSX.Element
   const [faleMaisPrice, setFaleMaisPrice] = useState<Dinero.Dinero | null>(null);
   const [isWaitingForPriceData, setIsWaitingForPriceData] = useState<boolean>(true);
 
+  /**
+   * Calculates and sets prices, and sends usage data to server.
+   */
   async function handleCalculate() : Promise<void>
   {
     try
@@ -46,6 +49,9 @@ function App() : JSX.Element
                                                   faleMaisPlan);
   }
 
+  /**
+   * Fetches price rates from server.
+   */
   useEffect(() => 
   {
     (async () =>

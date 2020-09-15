@@ -9,6 +9,13 @@ export default class UsageDataReportService
   /**
    * Stores usage data in the database.
    * 
+   * Client Ip is stored as a hash to
+   * ensure anonymization. 
+   * 
+   * As we don't really need a cryptographic hash 
+   * algorithm, SHA1 is being used as it is
+   * inexpensive in computational terms.
+   * 
    * Pre Conditions:
    * - Must connect successfully to database.
    * 

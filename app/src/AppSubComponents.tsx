@@ -130,7 +130,6 @@ export const CalculateButton = styled(Button)`
     }
 
   }
-
 `;
 
 export const FaleMaisSelect = styled.select`
